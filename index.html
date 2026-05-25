@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예손치과의원 | Yeson Dental Clinic</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;background:#fff;color:#1a1a1a;font-size:14px;line-height:1.6;}
+
+    /* NAV */
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;border-bottom:1px solid #f0f0f0;background:#fff;position:sticky;top:0;z-index:100;}
+    .nav-logo{display:flex;align-items:center;gap:8px;}
+    .logo-mark{width:28px;height:28px;background:#5B3FA6;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+    .logo-text{font-size:16px;font-weight:600;letter-spacing:0.04em;color:#1a1a1a;}
+    .logo-text span{color:#5B3FA6;}
+    .nav-links{display:flex;gap:32px;}
+    .nav-links a{font-size:13px;color:#555;text-decoration:none;letter-spacing:0.02em;}
+    .nav-links a:hover{color:#5B3FA6;}
+    .nav-cta{background:#5B3FA6;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:13px;cursor:pointer;letter-spacing:0.02em;}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:5fr 7fr;min-height:520px;}
+    .hero-left{padding:80px 56px;display:flex;flex-direction:column;justify-content:center;background:#fafafa;}
+    .hero-badge{display:inline-block;background:#F0EBF9;color:#5B3FA6;font-size:11px;padding:5px 12px;border-radius:20px;letter-spacing:0.05em;margin-bottom:20px;font-weight:500;}
+    .hero-left h1{font-size:34px;font-weight:700;line-height:1.3;color:#1a1a1a;margin-bottom:16px;letter-spacing:-0.02em;transition:opacity 0.5s ease;}
+    .hero-left h1 span{color:#5B3FA6;}
+    .hero-left p{font-size:14px;color:#777;line-height:1.8;margin-bottom:32px;max-width:340px;}
+    .hero-btns{display:flex;gap:12px;}
+    .btn-primary{background:#5B3FA6;color:#fff;border:none;padding:12px 24px;border-radius:7px;font-size:13px;cursor:pointer;font-weight:500;}
+    .btn-secondary{background:transparent;color:#5B3FA6;border:1.5px solid #5B3FA6;padding:12px 24px;border-radius:7px;font-size:13px;cursor:pointer;font-weight:500;}
+
+    /* HERO SLIDER */
+    .hero-right{position:relative;overflow:hidden;background:#1a1a1a;}
+    .slider-track{display:flex;height:100%;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);}
+    .slide{min-width:100%;height:100%;flex-shrink:0;position:relative;overflow:hidden;background:#1a1a1a;}
+    .slide img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+    .slide-label{position:absolute;bottom:20px;left:20px;background:rgba(255,255,255,0.92);border-radius:8px;padding:8px 14px;font-size:11px;color:#5B3FA6;font-weight:600;letter-spacing:0.05em;z-index:5;}
+    .slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(255,255,255,0.92);border:1px solid rgba(91,63,166,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:background 0.2s;}
+    .slider-btn:hover{background:#5B3FA6;}
+    .slider-btn:hover svg{stroke:#fff;}
+    .slider-btn svg{width:16px;height:16px;stroke:#5B3FA6;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s;}
+    .slider-prev{left:14px;} .slider-next{right:14px;}
+    .slider-dots{position:absolute;bottom:18px;right:18px;display:flex;gap:6px;z-index:10;}
+    .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:background 0.2s,transform 0.2s;}
+    .dot.active{background:#fff;transform:scale(1.3);}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #e0d5f0;border-bottom:1px solid #e0d5f0;background:#F0EBF9;}
+    .stat-item{padding:28px 0;text-align:center;border-right:1px solid #e0d5f0;}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{font-size:26px;font-weight:700;color:#5B3FA6;letter-spacing:-0.02em;}
+    .stat-unit{font-size:13px;color:#7B6A9A;margin-top:4px;}
+
+    /* SECTION TITLE */
+    .section-title{text-align:center;margin-bottom:40px;}
+    .section-tag{display:inline-block;font-size:14px;color:#5B3FA6;letter-spacing:0.08em;font-weight:600;margin-bottom:12px;text-transform:uppercase;}
+    .section-title h2{font-size:30px;font-weight:700;color:#1a1a1a;letter-spacing:-0.02em;}
+    .section-title p{font-size:15px;color:#888;margin-top:10px;}
+
+    /* TREATMENTS */
+    .treatments{padding:72px 96px;}
+    .treat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .treat-card{border:1px solid #f0f0f0;border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color 0.2s;}
+    .treat-card:hover{border-color:#5B3FA6;}
+    .treat-img{height:140px;display:flex;align-items:center;justify-content:center;}
+    .ti-1{background:#F0EBF9;} .ti-2{background:#EAF7F3;} .ti-3{background:#FBF0F6;} .ti-4{background:#EBF1FB;}
+    .treat-icon{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.9);border:1.5px solid rgba(91,63,166,0.2);display:flex;align-items:center;justify-content:center;}
+    .treat-icon svg{width:22px;height:22px;stroke:#5B3FA6;fill:none;stroke-width:1.8;}
+    .treat-body{padding:18px 16px;}
+    .treat-body h3{font-size:16px;font-weight:600;color:#1a1a1a;margin-bottom:8px;}
+    .treat-body p{font-size:13px;color:#999;line-height:1.6;word-break:keep-all;}
+
+    /* ABOUT SLIDER */
+    .about{display:grid;grid-template-columns:1fr 1fr;}
+    .about-img-area{position:relative;overflow:hidden;background:#D4C8EE;}
+    .about-track{display:flex;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);}
+    .about-slide{min-width:100%;flex-shrink:0;position:relative;background:#ede8f8;display:flex;align-items:center;justify-content:center;}
+    .about-slide img{width:auto;height:auto;max-width:100%;max-height:500px;display:block;object-fit:contain;}
+    .about-slide-label{position:absolute;bottom:16px;left:16px;background:rgba(255,255,255,0.92);border-radius:6px;padding:7px 13px;font-size:11px;color:#5B3FA6;font-weight:600;letter-spacing:0.04em;z-index:3;}
+    .about-btn{position:absolute;top:40%;transform:translateY(-50%);width:36px;height:36px;background:rgba(255,255,255,0.9);border:1px solid rgba(91,63,166,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:background 0.2s;}
+    .about-btn:hover{background:#5B3FA6;}
+    .about-btn:hover svg{stroke:#fff;}
+    .about-btn svg{width:14px;height:14px;stroke:#5B3FA6;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s;}
+    .about-prev{left:12px;} .about-next{right:12px;}
+    .about-dots-wrap{position:absolute;bottom:14px;right:14px;display:flex;gap:5px;z-index:10;}
+    .about-dot{width:5px;height:5px;border-radius:50%;background:rgba(91,63,166,0.3);cursor:pointer;transition:background 0.2s,transform 0.2s;}
+    .about-dot.active{background:#5B3FA6;transform:scale(1.3);}
+    .about-content{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;background:#f8f7fc;}
+    .about-content .section-tag{text-align:left;}
+    .about-content h2{font-size:28px;font-weight:700;color:#1a1a1a;line-height:1.4;margin-bottom:16px;letter-spacing:-0.02em;}
+    .about-content p{font-size:14px;color:#777;line-height:1.9;margin-bottom:24px;}
+    .about-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+    .about-list li{display:flex;align-items:center;gap:10px;font-size:14px;color:#444;}
+    .about-list li::before{content:'';width:6px;height:6px;background:#5B3FA6;border-radius:50%;flex-shrink:0;}
+
+    /* FEATURES */
+    .features{padding:72px 48px;}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    .feat-card{border:1px solid #f0f0f0;border-radius:14px;overflow:hidden;}
+    .feat-img{height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .fi-1{background:#F0EBF9;} .fi-2{background:#EBF4FF;} .fi-3{background:#F0F8F4;}
+    .feat-img-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.92);border:1.5px solid rgba(91,63,166,0.18);display:flex;align-items:center;justify-content:center;}
+    .feat-img-icon svg{width:26px;height:26px;stroke:#5B3FA6;fill:none;stroke-width:1.6;}
+    .feat-body{padding:24px 22px;}
+    .feat-kw{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;background:#F0EBF9;color:#5B3FA6;padding:3px 9px;border-radius:4px;margin-bottom:10px;}
+    .kw-2{background:#EBF4FF;color:#185FA5;} .kw-3{background:#E6F5EE;color:#0F7A50;}
+    .feat-body h3{font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:10px;letter-spacing:-0.01em;}
+    .feat-body p{font-size:13px;color:#999;line-height:1.8;}
+
+    /* CTA */
+    .cta-banner{background:#5B3FA6;padding:60px 48px;display:flex;align-items:center;justify-content:space-between;}
+    .cta-banner h2{font-size:24px;font-weight:700;color:#fff;letter-spacing:-0.02em;}
+    .cta-banner p{font-size:14px;color:rgba(255,255,255,0.75);margin-top:6px;}
+    .cta-btn{background:#fff;color:#5B3FA6;border:none;padding:14px 28px;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;}
+
+    /* NOTICE */
+    .notice{padding:0;overflow:hidden;background:#fafafa;margin-top:40px;}
+    .notice-img-wrap{position:relative;height:380px;overflow:hidden;}
+    .notice-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.85);}
+    .notice-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(250,250,250,1) 100%);}
+    .notice-bottom{padding:48px 48px 72px;}
+    .notice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .notice-card{background:#fff;border:1px solid #f0f0f0;border-radius:10px;padding:24px;cursor:pointer;}
+    .notice-card:hover{border-color:#C4AFF0;}
+    .notice-tag-badge{display:inline-block;font-size:11px;background:#F0EBF9;color:#5B3FA6;padding:3px 8px;border-radius:4px;font-weight:600;margin-bottom:10px;letter-spacing:0.04em;}
+    .notice-card h4{font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:8px;line-height:1.5;}
+    .notice-card p{font-size:13px;color:#aaa;}
+
+    /* FOOTER */
+    .footer{background:#1a1a1a;padding:48px;display:grid;grid-template-columns:1fr 2fr;gap:48px;}
+    .footer-brand-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:0.04em;margin-bottom:12px;}
+    .footer-brand-name span{color:#9B7FD4;}
+    .footer-brand p{font-size:12px;color:#666;line-height:1.8;}
+    .footer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    .footer-col h5{font-size:12px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:0.04em;}
+    .footer-col a{display:block;font-size:12px;color:#666;text-decoration:none;margin-bottom:8px;}
+    .footer-col a:hover{color:#9B7FD4;}
+    .footer-bottom{background:#111;padding:16px 48px;display:flex;justify-content:space-between;align-items:center;}
+    .footer-bottom p{font-size:11px;color:#555;}
+
+    /* MODAL */
+    .modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;align-items:center;justify-content:center;}
+    .modal-box{background:#fff;border-radius:16px;padding:40px 36px;width:360px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+    .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;}
+    .modal-icon{width:48px;height:48px;background:#F0EBF9;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+    .modal-title{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
+    .modal-sub{font-size:13px;color:#999;margin-bottom:28px;}
+    .modal-btn-naver{display:flex;align-items:center;gap:14px;background:#03C75A;color:#fff;text-decoration:none;padding:16px 20px;border-radius:10px;margin-bottom:12px;font-weight:600;font-size:14px;}
+    .modal-btn-tel{display:flex;align-items:center;gap:14px;background:#5B3FA6;color:#fff;text-decoration:none;padding:16px 20px;border-radius:10px;font-weight:600;font-size:14px;}
+    .modal-btn-label{margin-left:auto;font-size:12px;opacity:0.85;}
+    .modal-time{text-align:center;font-size:11px;color:#bbb;margin-top:16px;}
+
+    /* TEXT FADE */
+    #heroTextWrap{transition:opacity 0.5s ease;}
+  </style>
+</head>
+<body>
+
+  <!-- 예약 모달 -->
+  <div class="modal-wrap" id="bookingModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div style="text-align:center;">
+        <div class="modal-icon">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#5B3FA6"><path d="M8 2C5.8 2 4 3.5 4 5.5c0 1.2.6 2.2 1.5 2.8C4.6 8.9 4 10 4 11.2c0 2 1.6 3.3 4 3.3s4-1.3 4-3.3c0-1.2-.6-2.3-1.5-2.9.9-.6 1.5-1.6 1.5-2.8C12 3.5 10.2 2 8 2z"/></svg>
+        </div>
+        <div class="modal-title">진료 예약하기</div>
+        <div class="modal-sub">편리한 방법으로 예약하세요</div>
+      </div>
+      <a href="https://booking.naver.com" target="_blank" class="modal-btn-naver">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/></svg>
+        네이버 예약
+        <span class="modal-btn-label">간편하게 온라인 예약</span>
+      </a>
+      <a href="tel:0315527178" class="modal-btn-tel">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        전화 상담 문의
+        <span class="modal-btn-label">031-552-7178</span>
+      </a>
+      <div class="modal-time">평일 09:00 – 18:00 · 토요일 09:00 – 13:00</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="logo-mark"><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M8 2C5.8 2 4 3.5 4 5.5c0 1.2.6 2.2 1.5 2.8C4.6 8.9 4 10 4 11.2c0 2 1.6 3.3 4 3.3s4-1.3 4-3.3c0-1.2-.6-2.3-1.5-2.9.9-.6 1.5-1.6 1.5-2.8C12 3.5 10.2 2 8 2z"/></svg></div>
+      <span class="logo-text"><span>예손</span>치과의원</span>
+    </div>
+    <div class="nav-links">
+      <a href="about.html">병원소개</a><a href="#">진료과목</a><a href="#">오시는 길</a><a href="#">이벤트</a>
+    </div>
+    <button class="nav-cta" onclick="openModal()">진료예약 →</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-badge">카톨릭의대 외래교수 · 예손치과의원 3F</span>
+      <div id="heroTextWrap">
+        <h1 id="heroTitle">믿을 수 있는 치과,<br><span>편안한 진료</span>를<br>약속합니다</h1>
+        <p id="heroDesc">풍부한 임상 경험과 최신 장비로<br>여러분의 소중한 치아 건강을 지켜드립니다.</p>
+      </div>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openModal()">진료 예약하기</button>
+        <button class="btn-secondary">진료과목 보기</button>
+      </div>
+    </div>
+    <div class="hero-right" id="heroRight">
+      <div class="slider-track" id="heroTrack">
+
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777739257/IMG_3445_omxxoo.jpg" alt="예손치과 진료">
+          <div class="slide-label">정성스러운 진료</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777738396/IMG_3445_af7ih9.jpg" alt="정성스러운 진료">
+          <div class="slide-label">정성스러운 진료</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777732304/ChatGPT_Image_2026%EB%85%84_5%EC%9B%94_2%EC%9D%BC_%EC%98%A4%ED%9B%84_11_27_46_femsnb.png" alt="예손치과의원">
+          <div class="slide-label">예손치과의원</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777725910/KakaoTalk_Photo_2026-05-02-17-20-06_014_k4fnhd.jpg" alt="편안한 대기 공간">
+          <div class="slide-label">편안한 대기 공간</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777734830/IMG_3444_dsfxjm.jpg" alt="예손치과">
+          <div class="slide-label">예손치과의원</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777729753/KakaoTalk_Photo_2026-05-02-17-20-21_026_oovd0u.jpg" alt="정성스러운 진료">
+          <div class="slide-label">정성스러운 진료</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/f_jpg/v1777733880/IMG_3313_nwbe11.heic" alt="진료실">
+          <div class="slide-label">진료실</div>
+        </div>
+        <div class="slide">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777726756/KakaoTalk_Photo_2026-05-02-17-28-03_002_epcqlw.jpg" alt="첨단 진료 장비">
+          <div class="slide-label">첨단 진료 장비</div>
+        </div>
+
+      </div>
+      <button class="slider-btn slider-prev" id="heroPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="slider-btn slider-next" id="heroNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="slider-dots" id="heroDots">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+        <div class="dot" data-index="3"></div>
+        <div class="dot" data-index="4"></div>
+        <div class="dot" data-index="5"></div>
+        <div class="dot" data-index="6"></div>
+        <div class="dot" data-index="7"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">20<span style="font-size:16px">년+</span></div><div class="stat-unit">진료 경력</div></div>
+    <div class="stat-item"><div class="stat-num">3F</div><div class="stat-unit">전용 진료층</div></div>
+    <div class="stat-item"><div class="stat-num">98<span style="font-size:16px">%</span></div><div class="stat-unit">환자 만족도</div></div>
+    <div class="stat-item"><div class="stat-num" style="font-size:18px;">031-552-7178</div><div class="stat-unit">대표 번호</div></div>
+  </div>
+
+  <section class="treatments">
+    <div class="section-title">
+      <span class="section-tag">Treatments</span>
+      <h2>진료과목 안내</h2>
+      <p>체계적인 진료 시스템으로 최적의 치료 방법을 제안합니다</p>
+    </div>
+    <div class="treat-grid">
+      <div class="treat-card"><div class="treat-img ti-1" style="position:relative;overflow:hidden;padding:0;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777812074/harold-hizon-LOgBp87WzIk-unsplash_apvxzi.jpg" alt="임플란트" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);">
+          <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><div class="treat-icon" style="border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.15);"><svg viewBox="0 0 24 24" style="stroke:#fff;"><line x1="12" y1="3" x2="12" y2="21"/><path d="M8 7h8M9 11h6M10 15h4"/></svg></div></div>
+        </div><div class="treat-body"><h3>임플란트</h3><p>자연 치아에 가장 가까운 최신 임플란트 시술</p></div></div>
+      <div class="treat-card"><div class="treat-img ti-2" style="position:relative;overflow:hidden;padding:0;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777812697/katarzyna-zygnerska-HqFpHQzE-Ko-unsplash_kd3iej.jpg" alt="교정치료" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);">
+          <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><div class="treat-icon" style="border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.15);"><svg viewBox="0 0 24 24" style="stroke:#fff;"><path d="M3 12h18M3 7c3 0 3 5 6 5s3-5 6-5 3 5 6 5M3 17c3 0 3-5 6-5s3 5 6 5 3-5 6-5"/></svg></div></div>
+        </div><div class="treat-body"><h3>교정 치료</h3><p>브라켓 교정으로 아름다운 치열 완성</p></div></div>
+      <div class="treat-card"><div class="treat-img ti-3" style="position:relative;overflow:hidden;padding:0;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777811763/alexander-krivitskiy-yIitNO2Bgdo-unsplash_tzo6l1.jpg" alt="심미치료" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><div class="treat-icon" style="border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.15);"><svg viewBox="0 0 24 24" style="stroke:#fff;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div></div>
+        </div><div class="treat-body"><h3>심미 치료</h3><p>라미네이트, 미백 등 아름다운 미소를 위한 심미 치료</p></div></div>
+      <div class="treat-card"><div class="treat-img ti-4" style="position:relative;overflow:hidden;padding:0;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777813002/matthew-poetker-nWZs_SnBDmg-unsplash_c3yzym.jpg" alt="일반보존치료" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.82);">
+          <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><div class="treat-icon" style="border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.15);"><svg viewBox="0 0 24 24" style="stroke:#fff;"><path d="M12 2a5 5 0 100 10 5 5 0 000-10zM4 22s-1-7 8-7 8 7 8 7"/></svg></div></div>
+        </div><div class="treat-body"><h3>일반 · 보존 치료</h3><p>충치 치료, 신경 치료 등 기본적인 구강 건강 관리</p></div></div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="about-img-area" id="aboutArea">
+      <div class="about-track" id="aboutTrack">
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777724015/KakaoTalk_Photo_2026-05-02-19-40-10_001_f6t1o9.png" alt="원장님 프로필 1"><div class="about-slide-label">대표원장 · 카톨릭의대 외래교수</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777723947/KakaoTalk_Photo_2026-05-02-19-40-10_004_o74zbj.jpg" alt="원장님 사진 2"><div class="about-slide-label">끊임없는 연구와 학습</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777723968/KakaoTalk_Photo_2026-05-02-19-40-10_003_ii2dbu.jpg" alt="원장님 사진 3"><div class="about-slide-label">AMII 골드 배지 원장</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777723993/KakaoTalk_Photo_2026-05-02-19-40-10_002_szrijv.jpg" alt="원장님 사진 5"><div class="about-slide-label">오스템 연구자문치과 지정</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777724040/KakaoTalk_Photo_2026-05-02-17-20-21_025_youjwc.jpg" alt="대기실"><div class="about-slide-label">편안한 대기 공간</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777724062/KakaoTalk_Photo_2026-05-02-17-20-19_008_xhi3qc.jpg" alt="진료 장면"><div class="about-slide-label">정성스러운 직접 진료</div></div>
+        <div class="about-slide"><img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777724085/KakaoTalk_Photo_2026-05-02-17-20-19_009_zpn2fd.jpg" alt="진료 장면 2"><div class="about-slide-label">전문적인 치료</div></div>
+      </div>
+      <button class="about-btn about-prev" id="aboutPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="about-btn about-next" id="aboutNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="about-dots-wrap" id="aboutDots">
+        <div class="about-dot active" data-index="0"></div>
+        <div class="about-dot" data-index="1"></div>
+        <div class="about-dot" data-index="2"></div>
+        <div class="about-dot" data-index="3"></div>
+        <div class="about-dot" data-index="4"></div>
+        <div class="about-dot" data-index="5"></div>
+        <div class="about-dot" data-index="6"></div>
+      </div>
+    </div>
+    <div class="about-content">
+      <span class="section-tag">About Us</span>
+      <h2>카톨릭의대 외래교수가<br>직접 진료합니다</h2>
+      <p>예손치과는 단순한 치료를 넘어, 환자 한 분 한 분의 구강 건강과 삶의 질을 높이기 위해 최선을 다하고 있습니다.</p>
+      <ul class="about-list">
+        <li>카톨릭의대 외래교수 직접 진료</li>
+        <li>오스템 임플란트 연구자문치과 지정</li>
+        <li>최신 디지털 장비 도입</li>
+        <li>투명한 진료비 안내</li>
+      </ul>
+      <button class="btn-primary" style="width:fit-content;">병원 소개 더 보기 →</button>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="section-title">
+      <span class="section-tag">Why Yeson</span>
+      <h2>예손치과가 특별한 이유</h2>
+      <p>환자분이 편안하게 느낄 수 있는 진료 환경을 만들어 갑니다</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-img fi-1" style="padding:0;overflow:hidden;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777736926/ChatGPT_Image_2026%EB%85%84_5%EC%9B%94_3%EC%9D%BC_%EC%98%A4%EC%A0%84_12_47_02_cwq0bo.png" alt="친절한 간호팀" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="feat-body"><span class="feat-kw">친절한 직원</span><h3>따뜻하게 맞이하는<br>친절한 간호팀</h3><p>처음 방문하시는 분도 편안하게 느끼실 수 있도록, 경험 많은 간호사와 코디네이터가 진료 전 과정을 친절하게 안내해 드립니다.</p></div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-img fi-2" style="padding:0;overflow:hidden;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777726756/KakaoTalk_Photo_2026-05-02-17-28-03_002_epcqlw.jpg" alt="첨단 진료 장비" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="feat-body"><span class="feat-kw kw-2">첨단 장비</span><h3>정밀한 진단을 위한<br>최신 디지털 장비</h3><p>3D CT, 디지털 구강 스캐너, 레이저 치료기 등 최신 장비를 도입하여 보다 정확하고 빠른 진단과 치료가 가능합니다.</p></div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-img fi-3" style="padding:0;overflow:hidden;">
+          <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777736718/ChatGPT_Image_2026%EB%85%84_5%EC%9B%94_3%EC%9D%BC_%EC%98%A4%EC%A0%84_12_39_43_arfqzl.png" alt="청결한 환경" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="feat-body"><span class="feat-kw kw-3">청결한 환경</span><h3>편안함과 위생을 함께<br>쾌적하고 깨끗한 공간</h3><p>진료 기구의 철저한 멸균·소독과 매일 꼼꼼한 청소로 항상 청결한 환경을 유지합니다. 넓고 밝은 공간에서 편안하게 진료받으실 수 있습니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div><h2>오늘 바로 예약하세요</h2><p>편리한 온라인 예약 또는 전화로 간편하게 예약하실 수 있습니다 · 552-7178</p></div>
+    <button class="cta-btn" onclick="openModal()">진료 예약하기 →</button>
+  </section>
+
+  <section class="notice">
+    <div class="notice-img-wrap">
+      <img src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1777740736/KakaoTalk_Photo_2026-05-02-17-20-19_011_bxhf4p.jpg" alt="공지사항">
+    </div>
+    <div class="notice-bottom">
+      <div class="section-title">
+        <span class="section-tag">Community</span>
+        <h2>공지사항 · 치과 이야기</h2>
+      </div>
+      <div class="notice-grid">
+        <div class="notice-card"><span class="notice-tag-badge">공지</span><h4>2025년 추석 연휴 진료 안내</h4><p>2025.09.10</p></div>
+        <div class="notice-card"><span class="notice-tag-badge">이벤트</span><h4>임플란트 상담 무료 이벤트 진행 중</h4><p>2025.08.20</p></div>
+        <div class="notice-card"><span class="notice-tag-badge">치과 이야기</span><h4>올바른 칫솔질 방법과 치아 관리 팁</h4><p>2025.07.15</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="footer-brand-name"><span>예손</span>치과의원</div>
+      <p>경기도 구리시 동구릉로 91 인창빌딩 3층<br>Tel: 031.552.7178 / 031.552.7767<br>진료시간: 평일 09:00 – 18:00</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>병원안내</h5><a href="#">병원 소개</a><a href="#">시설 안내</a><a href="#">오시는 길</a></div>
+      <div class="footer-col"><h5>진료과목</h5><a href="#">임플란트</a><a href="#">교정 치료</a><a href="#">심미 치료</a><a href="#">일반 치료</a></div>
+      <div class="footer-col"><h5>고객센터</h5><a href="#" onclick="openModal()">진료 예약</a><a href="#">공지사항</a><a href="#">자주 묻는 질문</a></div>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>COPYRIGHT © 예손치과의원. All Rights Reserved.</p>
+    <p style="color:#5B3FA6;font-size:11px;">031.552.7178</p>
+  </div>
+
+  <script>
+    // 모달
+    function openModal(){ document.getElementById('bookingModal').style.display='flex'; }
+    function closeModal(){ document.getElementById('bookingModal').style.display='none'; }
+    document.getElementById('bookingModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+    // 슬라이드별 텍스트
+    const heroTexts = [
+      { title:'경력 20년 이상의<br><span style="color:#5B3FA6">풍부한 임상 경험</span>으로<br>여러분의 치아를 지켜드립니다', desc:'카톨릭의대 외래교수가 직접 진료하는<br>믿을 수 있는 치과입니다.' },
+      { title:'경력 20년 이상의<br><span style="color:#5B3FA6">풍부한 임상 경험</span>으로<br>여러분의 치아를 지켜드립니다', desc:'카톨릭의대 외래교수가 직접 진료하는<br>믿을 수 있는 치과입니다.' },
+      { title:'믿을 수 있는 치과,<br><span style="color:#5B3FA6">편안한 진료</span>를<br>약속합니다', desc:'풍부한 임상 경험과 최신 장비로<br>여러분의 소중한 치아 건강을 지켜드립니다.' },
+      { title:'믿을 수 있는 치과,<br><span style="color:#5B3FA6">편안한 진료</span>를<br>약속합니다', desc:'풍부한 임상 경험과 최신 장비로<br>여러분의 소중한 치아 건강을 지켜드립니다.' },
+      { title:'믿을 수 있는 치과,<br><span style="color:#5B3FA6">편안한 진료</span>를<br>약속합니다', desc:'풍부한 임상 경험과 최신 장비로<br>여러분의 소중한 치아 건강을 지켜드립니다.' },
+      { title:'경력 20년 이상의<br><span style="color:#5B3FA6">풍부한 임상 경험</span>으로<br>여러분의 치아를 지켜드립니다', desc:'카톨릭의대 외래교수가 직접 진료하는<br>믿을 수 있는 치과입니다.' },
+      { title:'청결하고<br><span style="color:#5B3FA6">편안한 진료실</span>에서<br>안심하고 받는 치료', desc:'위생적이고 쾌적한 1인 진료 공간에서<br>편안하게 치료받으실 수 있습니다.' },
+      { title:'청결하고<br><span style="color:#5B3FA6">편안한 진료실</span>에서<br>안심하고 받는 치료', desc:'위생적이고 쾌적한 1인 진료 공간에서<br>편안하게 치료받으실 수 있습니다.' },
+    ];
+
+    function makeSlider(trackId, dotsSel, prevId, nextId, total, interval) {
+      const track = document.getElementById(trackId);
+      const dots = document.querySelectorAll(dotsSel);
+      const isHero = trackId === 'heroTrack';
+      const textWrap = isHero ? document.getElementById('heroTextWrap') : null;
+      const titleEl = isHero ? document.getElementById('heroTitle') : null;
+      const descEl = isHero ? document.getElementById('heroDesc') : null;
+      let cur = 0, timer;
+
+      function updateText(i) {
+        if (!textWrap) return;
+        const newTitle = heroTexts[i].title;
+        if (titleEl.innerHTML === newTitle) return;
+        textWrap.style.opacity = '0';
+        setTimeout(() => {
+          titleEl.innerHTML = newTitle;
+          descEl.innerHTML = heroTexts[i].desc;
+          textWrap.style.opacity = '1';
+        }, 300);
+      }
+
+      function goTo(i) {
+        cur = (i+total)%total;
+        track.style.transform = 'translateX(-'+(cur*100)+'%)';
+        dots.forEach((d,j) => d.classList.toggle('active', j===cur));
+        updateText(cur);
+      }
+      function next() { goTo(cur+1); reset(); }
+      function prev() { goTo(cur-1); reset(); }
+      function reset() { clearInterval(timer); timer = setInterval(next, interval); }
+      document.getElementById(nextId).addEventListener('click', next);
+      document.getElementById(prevId).addEventListener('click', prev);
+      dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.index); reset(); }));
+      timer = setInterval(next, interval);
+    }
+
+    makeSlider('heroTrack', '#heroDots .dot', 'heroPrev', 'heroNext', 8, 4000);
+    makeSlider('aboutTrack', '#aboutDots .about-dot', 'aboutPrev', 'aboutNext', 7, 5000);
+
+    function syncHeights() {
+      const heroLeft = document.querySelector('.hero-left');
+      const heroRight = document.querySelector('.hero-right');
+      if (heroLeft && heroRight) {
+        const h = heroLeft.offsetHeight;
+        heroRight.style.height = h + 'px';
+        document.querySelectorAll('#heroTrack .slide').forEach(el => el.style.height = h + 'px');
+      }
+      const aboutContent = document.querySelector('.about-content');
+      const aboutImgArea = document.querySelector('.about-img-area');
+      if (aboutContent && aboutImgArea) {
+        aboutImgArea.style.minHeight = aboutContent.offsetHeight + 'px';
+      }
+    }
+    window.addEventListener('load', syncHeights);
+    window.addEventListener('resize', syncHeights);
+  </script>
+</body>
+</html>
